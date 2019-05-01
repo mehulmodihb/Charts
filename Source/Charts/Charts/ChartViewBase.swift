@@ -573,40 +573,41 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     internal func drawMarkers(context: CGContext)
     {
         // if there is no marker view or drawing marker is disabled
-        guard
-            let marker = marker
-            , isDrawMarkersEnabled &&
-                valuesToHighlight()
-            else { return }
+        if isDrawMarkersEnabled, valuesToHighlight() {
+            
+        } else { return }
         
         for i in 0 ..< _indicesToHighlight.count
         {
             let highlight = _indicesToHighlight[i]
             
-            guard let
-                set = data?.getDataSetByIndex(highlight.dataSetIndex),
-                let e = _data?.entryForHighlight(highlight)
-                else { continue }
-            
-            let entryIndex = set.entryIndex(entry: e)
-            if entryIndex > Int(Double(set.entryCount) * _animator.phaseX)
-            {
-                continue
+            if let displayMarker = highlight.marker ?? self.marker {
+                
+                guard let
+                    set = data?.getDataSetByIndex(highlight.dataSetIndex),
+                    let e = _data?.entryForHighlight(highlight)
+                    else { continue }
+                
+                let entryIndex = set.entryIndex(entry: e)
+                if entryIndex > Int(Double(set.entryCount) * _animator.phaseX)
+                {
+                    continue
+                }
+                
+                let pos = getMarkerPosition(highlight: highlight)
+                
+                // check bounds
+                if !_viewPortHandler.isInBounds(x: pos.x, y: pos.y)
+                {
+                    continue
+                }
+                
+                // callbacks to update the content
+                displayMarker.refreshContent(entry: e, highlight: highlight)
+                
+                // draw the marker
+                displayMarker.draw(context: context, point: pos)
             }
-
-            let pos = getMarkerPosition(highlight: highlight)
-
-            // check bounds
-            if !_viewPortHandler.isInBounds(x: pos.x, y: pos.y)
-            {
-                continue
-            }
-
-            // callbacks to update the content
-            highlight.marker?.refreshContent(entry: e, highlight: highlight)
-            
-            // draw the marker
-            highlight.marker?.draw(context: context, point: pos)
         }
     }
     
