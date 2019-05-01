@@ -47,6 +47,9 @@ open class Highlight: NSObject
     /// the y-position (pixels) on which this highlight object was last drawn
     @objc open var drawY: CGFloat = 0.0
     
+    /// The marker that is displayed when a value is clicked on the chart
+    @objc open var marker: IMarker?
+    
     public override init()
     {
         super.init()

@@ -603,10 +603,10 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
             }
 
             // callbacks to update the content
-            marker.refreshContent(entry: e, highlight: highlight)
+            highlight.marker?.refreshContent(entry: e, highlight: highlight)
             
             // draw the marker
-            marker.draw(context: context, point: pos)
+            highlight.marker?.draw(context: context, point: pos)
         }
     }
     
