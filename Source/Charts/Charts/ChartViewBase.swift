@@ -581,7 +581,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
         {
             let highlight = _indicesToHighlight[i]
             
-            if let displayMarker = highlight.marker ?? self.marker {
+            if let displayMarker = highlight.marker ?? self.marker, highlight.isHorizontalIndicatorEnable == false {
                 
                 guard let
                     set = data?.getDataSetByIndex(highlight.dataSetIndex),

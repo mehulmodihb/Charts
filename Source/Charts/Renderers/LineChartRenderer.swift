@@ -727,6 +727,10 @@ open class LineChartRenderer: LineRadarRenderer
             
             // draw the lines
             drawHighlightLines(context: context, point: pt, set: set)
+            
+            if high.isHorizontalIndicatorEnable {
+                drawForceFullyHighlightLines(context: context, point: pt)
+            }
         }
         
         context.restoreGState()

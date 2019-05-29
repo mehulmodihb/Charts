@@ -46,4 +46,18 @@ open class LineScatterCandleRadarRenderer: BarLineScatterCandleBubbleRenderer
             context.strokePath()
         }
     }
+    
+    /// Draws vertical & horizontal highlight-lines if enabled.
+    /// :param: context
+    /// :param: points
+    /// :param: horizontal
+    /// :param: vertical
+    @objc open func drawForceFullyHighlightLines(context: CGContext, point: CGPoint)
+    {
+        // draw horizontal highlight lines
+        context.beginPath()
+        context.move(to: CGPoint(x: viewPortHandler.contentLeft, y: point.y))
+        context.addLine(to: CGPoint(x: viewPortHandler.contentRight, y: point.y))
+        context.strokePath()
+    }
 }

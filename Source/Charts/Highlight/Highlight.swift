@@ -50,6 +50,9 @@ open class Highlight: NSObject
     /// The marker that is displayed when a value is clicked on the chart
     @objc open var marker: IMarker?
     
+    /// The marker should Display Indicator
+    @objc open var isHorizontalIndicatorEnable: Bool = false
+    
     public override init()
     {
         super.init()
